@@ -1,0 +1,12 @@
+@use "../variables" as vars;
+
+body.light {
+  --color-bg: #fff;
+  --color-text: #333;
+  --color-primary: #1677ff;
+  --color-primary-hover: #4096ff;
+  --color-danger: #ff4d4f;
+  --color-success: #52c41a;
+  --color-border: #d9d9d9;
+  --radius-md: 4px;
+}

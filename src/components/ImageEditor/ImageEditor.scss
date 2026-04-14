@@ -1,0 +1,86 @@
+.image-editor {
+    position: relative;
+    display: inline-block;
+    overflow: hidden; // 支持视口模式
+
+    &__canvas {
+        display: none; // 隐藏原图canvas，只用于数据存储
+    }
+
+    &__display-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: crosshair; // 默认画笔光标
+
+        &:active {
+            cursor: grabbing; // 拖动时的光标
+        }
+    }
+
+    &__crop-box {
+        position: absolute;
+        border: 2px dashed #4af;
+        box-sizing: border-box;
+        cursor: move;
+        pointer-events: auto; // 确保可以交互
+    }
+
+    &__crop-handle {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #4af;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: auto; // 确保可以交互
+
+        &--n {
+            left: 50%;
+            top: 0;
+            cursor: ns-resize;
+        }
+
+        &--s {
+            left: 50%;
+            top: 100%;
+            cursor: ns-resize;
+        }
+
+        &--e {
+            left: 100%;
+            top: 50%;
+            cursor: ew-resize;
+        }
+
+        &--w {
+            left: 0;
+            top: 50%;
+            cursor: ew-resize;
+        }
+
+        &--ne {
+            left: 100%;
+            top: 0;
+            cursor: nesw-resize;
+        }
+
+        &--nw {
+            left: 0;
+            top: 0;
+            cursor: nwse-resize;
+        }
+
+        &--se {
+            left: 100%;
+            top: 100%;
+            cursor: nwse-resize;
+        }
+
+        &--sw {
+            left: 0;
+            top: 100%;
+            cursor: nesw-resize;
+        }
+    }
+}

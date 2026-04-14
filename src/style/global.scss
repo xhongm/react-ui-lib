@@ -1,0 +1,31 @@
+@use "./variables" as *;
+@use "./mixins" as *;
+
+// Reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// Body
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  background-color: $color-bg;
+  color: $color-text;
+}
+
+// a 标签
+a {
+  color: $color-primary;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// 默认按钮 / 文本选择
+button {
+  font-family: inherit;
+}
