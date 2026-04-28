@@ -1,16 +1,25 @@
 .image-editor {
     position: relative;
     display: inline-block;
-    overflow: hidden; // 支持视口模式
+    vertical-align: top;
+    // overflow: hidden; // 支持视口模式
+
+    /* 视口模式：填满外层已定高的容器，否则 getBoundingClientRect 为 0 */
+    &--viewport {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
 
     &__canvas {
         display: none; // 隐藏原图canvas，只用于数据存储
     }
 
+    /* 参与文档流，父级才能获得与画布一致的宽高（勿与 display:none + 纯 absolute 子级叠用，否则父级塌缩为 0） */
     &__display-canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
+        display: block;
+        position: relative;
+        z-index: 0;
         cursor: crosshair; // 默认画笔光标
 
         &:active {
@@ -18,8 +27,14 @@
         }
     }
 
+    &--viewport &__display-canvas {
+        width: 100%;
+        height: 100%;
+    }
+
     &__crop-box {
         position: absolute;
+        z-index: 1;
         border: 2px dashed #4af;
         box-sizing: border-box;
         cursor: move;

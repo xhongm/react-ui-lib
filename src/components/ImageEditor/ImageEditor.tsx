@@ -2,27 +2,23 @@ import {
     useRef,
     useEffect,
     useImperativeHandle,
-    forwardRef,
     useState
 } from "react";
-import type { ImageEditorProps, ImageEditorRef, CropRect, ResizeDirection, AspectRatio } from "./types";
+import type { ImageEditorProps, CropRect, ResizeDirection, AspectRatio } from "./types";
 import "./ImageEditor.scss";
 
-const ImageEditor = forwardRef<ImageEditorRef, ImageEditorProps>(
-    (
-        {
-            image,
-            cropRect,
-            mode = "crop",
-            brushSize = 20,
-            brushOpacity = 0.3,
-            aspectRatio = "free",
-            useViewport = false,
-            onCropChange,
-            onMaskChange
-        },
-        ref
-    ) => {
+function ImageEditor({
+    imageEditorRef,
+    image,
+    cropRect,
+    mode = "crop",
+    brushSize = 20,
+    brushOpacity = 0.3,
+    aspectRatio = "free",
+    useViewport = false,
+    onCropChange,
+    onMaskChange
+}: ImageEditorProps) {
         const containerRef = useRef<HTMLDivElement>(null);
         const imageCanvasRef = useRef<HTMLCanvasElement>(null);
         const displayCanvasRef = useRef<HTMLCanvasElement>(null); // 显示层
@@ -298,8 +294,6 @@ const ImageEditor = forwardRef<ImageEditorRef, ImageEditorProps>(
         };
 
         const drawPreview = () => {
-            console.log('绘制原图>>>>>>>>>>>,');
-            
             const ctx = displayCanvasRef.current!.getContext("2d")!;
             ctx.clearRect(0, 0, displayCanvasRef.current!.width, displayCanvasRef.current!.height);
 
@@ -408,7 +402,7 @@ const ImageEditor = forwardRef<ImageEditorRef, ImageEditorProps>(
         };
 
         /* ---------- 导出 ---------- */
-        useImperativeHandle(ref, () => ({
+        useImperativeHandle(imageEditorRef, () => ({
             async exportImage() {
                 const out = document.createElement("canvas");
                 out.width = crop.width;
@@ -627,8 +621,7 @@ const ImageEditor = forwardRef<ImageEditorRef, ImageEditorProps>(
                 </div>
             </div>
         );
-    }
-);
+}
 
 ImageEditor.displayName = "ImageEditor";
 

@@ -1,3 +1,5 @@
+import type { Ref } from "react";
+
 /**
  * 图像编辑器工作模式
  * @example
@@ -27,9 +29,41 @@ export interface CropRect {
 }
 
 /**
+ * ImageEditor 组件 Ref 方法
+ */
+export interface ImageEditorRef {
+  /**
+   * 导出裁剪 + 蒙版后的图像
+   */
+  exportImage(): Promise<Blob>;
+
+  /**
+   * 导出仅裁剪的图像（不含蒙版）
+   */
+  exportCroppedImage(): Promise<Blob>;
+
+  /**
+   * 导出蒙版图像
+   */
+  exportMask(): Promise<Blob>;
+
+  /**
+   * 重置编辑器
+   */
+  reset(): void;
+}
+
+/**
  * ImageEditor 组件属性
  */
 export interface ImageEditorProps {
+  /**
+   * 暴露导出/重置等命令式 API 的 ref。
+   * 请使用本属性而非 JSX 的 `ref=`：后者会在 React 19 开发模式下为元素安装 `element.ref` 的兼容 getter，
+   * Storybook 等工具若仍访问 `element.ref` 会触发控制台弃用警告。
+   */
+  imageEditorRef?: Ref<ImageEditorRef>;
+
   /**
    * 图像源（URL 或 HTMLImageElement）
    */
@@ -85,31 +119,6 @@ export interface ImageEditorProps {
    * 蒙版变化回调
    */
   onMaskChange?: () => void;
-}
-
-/**
- * ImageEditor 组件 Ref 方法
- */
-export interface ImageEditorRef {
-  /**
-   * 导出裁剪 + 蒙版后的图像
-   */
-  exportImage(): Promise<Blob>;
-
-  /**
-   * 导出仅裁剪的图像（不含蒙版）
-   */
-  exportCroppedImage(): Promise<Blob>;
-
-  /**
-   * 导出蒙版图像
-   */
-  exportMask(): Promise<Blob>;
-
-  /**
-   * 重置编辑器
-   */
-  reset(): void;
 }
 
 export type ResizeDirection =

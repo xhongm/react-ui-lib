@@ -419,7 +419,7 @@ export const Interactive: Story = {
                 <div style={useViewport ? { width: '800px', height: '600px', border: '2px solid #ddd', borderRadius: '8px' } : {}}>
                     <ImageEditor
                         {...args}
-                        ref={editorRef}
+                        imageEditorRef={editorRef}
                         mode={mode}
                         brushSize={brushSize}
                         aspectRatio={aspectRatio}
